@@ -1,8 +1,8 @@
 import streamlit as st
 import ollama
-# import chromadb
+import chromadb
 # from chromadb.utils import embedding_functions
-from streamlit_chromadb_connection.chromadb_connection import ChromadbConnection
+# from streamlit_chromadb_connection.chromadb_connection import ChromadbConnection
 '''
 CHROMA_DATA_PATH = "chroma_data/"
 EMBED_MODEL = "all-MiniLM-L6-v2"
