@@ -1,4 +1,5 @@
 streamlit
 pysqlite3-binary
+pysqlite3
 chromadb
 ollama
