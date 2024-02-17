@@ -1,6 +1,6 @@
 import streamlit as st
 import ollama
-# import chromadb
+import chromadb
 # from chromadb.utils import embedding_functions
 # from streamlit_chromadb_connection.chromadb_connection import ChromadbConnection
 '''
