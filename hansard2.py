@@ -49,8 +49,7 @@ prompt = st.text_area("Please enter what you want to know from the hearing for t
 #   
       # number of rows
       # st.write(len(collection.get()['documents']))
-
-st.sidebar.write("Hansard Vector DB created. With " + len(collection.get()['documents']) + " rows." )
+      # st.sidebar.write("Hansard Vector DB created. With " + len(collection.get()['documents']) + " rows." )
 
 if st.button("Submit to AI", type="primary"):
      query_results = collection.query(
