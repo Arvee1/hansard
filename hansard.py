@@ -22,6 +22,13 @@ embedding_func = embedding_functions.SentenceTransformerEmbeddingFunction(
 
 st.write("after embedding function create")
 
+# collection = client.create_collection(
+collection = client.get_or_create_collection(
+     name=COLLECTION_NAME,
+     embedding_function=embedding_func,
+     metadata={"hnsw:space": "cosine"},
+ )
+
 with open("hansard-utf8.txt") as f:
     hansard = f.read()
 
