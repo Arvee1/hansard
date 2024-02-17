@@ -35,7 +35,6 @@ text_splitter = RecursiveCharacterTextSplitter(
 texts = text_splitter.create_documents([hansard])
 
 documents = text_splitter.split_text(hansard)[:len(texts)]
-st.write(documents)
 
 collection.add(
      documents=documents,
