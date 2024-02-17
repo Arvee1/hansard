@@ -23,7 +23,7 @@ collection = client.get_or_create_collection(
  )
 
 # The UI Part
-st.title("👨‍💻 Wazzup!!!! Let's Chat with the Hansard Senate Estimates for Employment Departmet (DEWR) - 2023")
+st.title("👨‍💻 Wazzup!!!! Let's Chat with the Hansard Senate Estimates for Employment Department (DEWR) - 2023")
 apikey = st.sidebar.text_area("Please enter enter your API Key.")
 prompt = st.text_area("Please enter what you want to know from the hearing for the Employment Department.")
 
