@@ -22,37 +22,36 @@ collection = client.get_or_create_collection(
      metadata={"hnsw:space": "cosine"},
  )
 
-with open("hansard-utf8.txt") as f:
-    hansard = f.read()
-
-text_splitter = RecursiveCharacterTextSplitter(
-    chunk_size=500,
-    chunk_overlap=20,
-    length_function=len,
-    is_separator_regex=False,
-)
-
-texts = text_splitter.create_documents([hansard])
-
-documents = text_splitter.split_text(hansard)[:len(texts)]
-
-collection.add(
-     documents=documents,
-     ids=[f"id{i}" for i in range(len(documents))],
-)
-
-# number of rows
-st.write(len(collection.get()['documents']))
-
-# prompt = ("What are the key questions that Senator Cash asks? What were on notice?")
-
 # The UI Part
 st.title("👨‍💻 Chat with the Hansard Estimates - 2023")
-st.write("Please enter enter your API Key.")
-apikey = st.text_area("Enter API Key")
+apikey = st.text_area("Please enter enter your API Key.")
+prompt = st.text_area("Please enter what you want to know from the hearing for the Employment Department.")
 
-st.write("Please enter what you want to know from the hearing for the Employment Department.")
-prompt = st.text_area("What do you want to know?")
+
+# Load VectorDB
+if st.button("Load Hansard into Vector DB if loading the page for the first time.", type="primary"):
+      with open("hansard-utf8.txt") as f:
+         hansard = f.read()
+     
+     text_splitter = RecursiveCharacterTextSplitter(
+         chunk_size=500,
+         chunk_overlap=20,
+         length_function=len,
+         is_separator_regex=False,
+     )
+     
+     texts = text_splitter.create_documents([hansard])
+     documents = text_splitter.split_text(hansard)[:len(texts)]
+     
+     collection.add(
+          documents=documents,
+          ids=[f"id{i}" for i in range(len(documents))],
+     )
+     
+     # number of rows
+     st.write(len(collection.get()['documents']))
+     
+     # prompt = ("What are the key questions that Senator Cash asks? What were on notice?")
 
 if st.button("Submit to AI", type="primary"):
      query_results = collection.query(
