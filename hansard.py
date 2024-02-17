@@ -1,8 +1,5 @@
 import streamlit as st
 import ollama
-import pysqlite3
-import sys
-sys.modules["sqlite3"] = sys.modules.pop("pysqlite3")
 import chromadb
 # from chromadb.utils import embedding_functions
 # from streamlit_chromadb_connection.chromadb_connection import ChromadbConnection
