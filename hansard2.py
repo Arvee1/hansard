@@ -73,6 +73,7 @@ query_results = collection.query(
 augment_query = str(query_results["documents"])
 st.write(augment_query)
 
+'''
 response = ollama.chat(
     model='llama2',
     messages=[
@@ -88,3 +89,4 @@ response = ollama.chat(
 )
 
 st.write(response['message']['content'])
+'''
