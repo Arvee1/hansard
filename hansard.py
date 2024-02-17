@@ -21,3 +21,23 @@ embedding_func = embedding_functions.SentenceTransformerEmbeddingFunction(
  )
 
 st.write("after embedding function create")
+
+with open("hansard-utf8.txt") as f:
+    hansard = f.read()
+
+text_splitter = RecursiveCharacterTextSplitter(
+#     Set a really small chunk size, just to show.
+    chunk_size=500,
+    chunk_overlap=20,
+    length_function=len,
+    is_separator_regex=False,
+)
+
+texts = text_splitter.create_documents([hansard])
+print(texts[0])
+# print(texts[1])
+# print(texts[2])
+# print(texts[3])
+
+documents = text_splitter.split_text(hansard)[:len(texts)]
+print(documents)
