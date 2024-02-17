@@ -39,18 +39,18 @@ if st.button("Load Hansard into Vector DB if loading the page for the first time
               is_separator_regex=False,
           )
      
-     texts = text_splitter.create_documents([hansard])
-     documents = text_splitter.split_text(hansard)[:len(texts)]
+      texts = text_splitter.create_documents([hansard])
+      documents = text_splitter.split_text(hansard)[:len(texts)]
      
-     collection.add(
+      collection.add(
            documents=documents,
            ids=[f"id{i}" for i in range(len(documents))],
-     )
+      )
      
-     # number of rows
-     st.write(len(collection.get()['documents']))
+      # number of rows
+      st.write(len(collection.get()['documents']))
      
-     # prompt = ("What are the key questions that Senator Cash asks? What were on notice?")
+      # prompt = ("What are the key questions that Senator Cash asks? What were on notice?")
 
 if st.button("Submit to AI", type="primary"):
      query_results = collection.query(
