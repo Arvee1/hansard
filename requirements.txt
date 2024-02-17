@@ -1,3 +1,4 @@
 streamlit
 chromadb
 ollama
+streamlit_chromadb_connection
