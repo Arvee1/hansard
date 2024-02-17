@@ -57,3 +57,13 @@ collection.add(
 '''
 # number of rows
 st.write(len(collection.get()['documents']))
+
+query_results = collection.query(
+     query_texts=["industrial relations. workplace agreement. wages."],
+     # include=["documents", "embeddings"],
+     include=["documents"],
+     n_results=10,
+ )
+
+# print(query_results["embeddings"])
+st.write(query_results["documents"])
