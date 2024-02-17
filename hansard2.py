@@ -12,8 +12,6 @@ EMBED_MODEL = "all-MiniLM-L6-v2"
 COLLECTION_NAME = "demo_docs"
 
 client = chromadb.PersistentClient(path=CHROMA_DATA_PATH)
-st.write("after ChromaDB client create")
-
 embedding_func = embedding_functions.SentenceTransformerEmbeddingFunction(
      model_name=EMBED_MODEL
  )
