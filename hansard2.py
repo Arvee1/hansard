@@ -59,7 +59,8 @@ collection.add(
 # number of rows
 st.write(len(collection.get()['documents']))
 
-prompt = ("What were the key points provided by Ms Jenkins relating to underpayment in the department? How much was the underpayment? For what period of time? What were the actions taken?")
+# prompt = ("What were the key points provided by Ms Jenkins relating to underpayment in the department? How much was the underpayment? For what period of time? What were the actions taken?")
+prompt = ("What are the key questions that Senator Cash asks? What were on notice?")
 
 query_results = collection.query(
      query_texts=[prompt],
