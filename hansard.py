@@ -58,12 +58,34 @@ collection.add(
 # number of rows
 st.write(len(collection.get()['documents']))
 
+prompt = ("What were the key points provided by Ms Jenkins relating to underpayment in the department?")
+
 query_results = collection.query(
-     query_texts=["industrial relations. workplace agreement. wages."],
+     query_texts=[prompt],
      # include=["documents", "embeddings"],
      include=["documents"],
-     n_results=10,
+     n_results=100,
  )
 
 # print(query_results["embeddings"])
-st.write(query_results["documents"])
+# st.write(query_results["documents"])
+
+augment_query = str(query_results["documents"])
+st.write(augment_query)
+
+response = ollama.chat(
+    model='llama2',
+    messages=[
+        {
+            "role": "system",
+            "content": "You are a friendly assistant."
+            # "content": augment_query
+        },
+        {
+            "role": "user",
+            "content": augment_query + " Prompt: " + prompt
+        },
+    ],
+)
+
+print(response['message']['content'])
