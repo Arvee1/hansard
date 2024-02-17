@@ -94,7 +94,7 @@ if st.button("Submit to AI", type="primary"):
        max_tokens=64,
        top_p=1
      )
-st.write(response.choices[0].message.content)
+     st.write(response.choices[0].message.content)
 
 
 '''
@@ -113,5 +113,5 @@ response = ollama.chat(
 )
 '''
 
-st.write(response['message']['content'])
+# st.write(response['message']['content'])
 
