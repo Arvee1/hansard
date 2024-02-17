@@ -27,7 +27,7 @@ st.title("👨‍💻 Chat with the Hansard Estimates - 2023")
 apikey = st.sidebar.text_area("Please enter enter your API Key.")
 prompt = st.text_area("Please enter what you want to know from the hearing for the Employment Department.")
 
-
+'''
 # Load VectorDB
 if st.sidebar.button("Load Hansard into Vector DB if loading the page for the first time.", type="primary"):
       with open("hansard-utf8.txt") as f:
@@ -50,6 +50,7 @@ if st.sidebar.button("Load Hansard into Vector DB if loading the page for the fi
       # number of rows
       st.write(len(collection.get()['documents']))
       st.sidebar.write("Hansard Vector DB created. With " + len(collection.get()['documents']) + " rows." )
+'''
 
 if st.button("Submit to AI", type="primary"):
      query_results = collection.query(
