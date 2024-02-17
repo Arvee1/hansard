@@ -4,10 +4,13 @@ sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
 
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 import streamlit as st
-import ollama
+# import ollama
+from openai import OpenAI
 import chromadb
 from chromadb.utils import embedding_functions
 # from streamlit_chromadb_connection.chromadb_connection import ChromadbConnection
+
+client = OpenAI(api_key="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")
 
 CHROMA_DATA_PATH = "chroma_data/"
 EMBED_MODEL = "all-MiniLM-L6-v2"
@@ -72,6 +75,25 @@ query_results = collection.query(
 
 augment_query = str(query_results["documents"])
 st.write(augment_query)
+
+response = client.chat.completions.create(
+  model="gpt-3.5-turbo",
+  messages=[
+    {
+      "role": "system",
+      "content": "You are a friendly assistant."
+    },
+    {
+      "role": "user",
+      "content": augment_query + " Prompt: " + prompt
+
+    }
+  ],
+  temperature=0.1,
+  max_tokens=64,
+  top_p=1
+)
+st.write(response.choices[0].message.content)
 
 '''
 response = ollama.chat(
