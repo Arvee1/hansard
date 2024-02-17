@@ -10,7 +10,7 @@ import chromadb
 from chromadb.utils import embedding_functions
 # from streamlit_chromadb_connection.chromadb_connection import ChromadbConnection
 
-client_AI = OpenAI(api_key="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")
+client_AI = OpenAI(api_key="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")
 
 CHROMA_DATA_PATH = "chroma_data/"
 EMBED_MODEL = "all-MiniLM-L6-v2"
