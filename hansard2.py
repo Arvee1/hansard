@@ -27,30 +27,29 @@ st.title("👨‍💻 Chat with the Hansard Estimates - 2023")
 apikey = st.sidebar.text_area("Please enter enter your API Key.")
 prompt = st.text_area("Please enter what you want to know from the hearing for the Employment Department.")
 
-'''
+
 # Load VectorDB
-if st.sidebar.button("Load Hansard into Vector DB if loading the page for the first time.", type="primary"):
-      with open("hansard-utf8.txt") as f:
-          hansard = f.read()
-          text_splitter = RecursiveCharacterTextSplitter(
-              chunk_size=500,
-              chunk_overlap=20,
-              length_function=len,
-              is_separator_regex=False,
-          )
-     
-      texts = text_splitter.create_documents([hansard])
-      documents = text_splitter.split_text(hansard)[:len(texts)]
-     
-      collection.add(
-           documents=documents,
-           ids=[f"id{i}" for i in range(len(documents))],
-      )
-   
+# if st.sidebar.button("Load Hansard into Vector DB if loading the page for the first time.", type="primary"):
+#      with open("hansard-utf8.txt") as f:
+#          hansard = f.read()
+#          text_splitter = RecursiveCharacterTextSplitter(
+#              chunk_size=500,
+#              chunk_overlap=20,
+#              length_function=len,
+#              is_separator_regex=False,
+#          )
+#     
+#      texts = text_splitter.create_documents([hansard])
+#      documents = text_splitter.split_text(hansard)[:len(texts)]
+#     
+#      collection.add(
+#           documents=documents,
+#           ids=[f"id{i}" for i in range(len(documents))],
+#      )
+#   
       # number of rows
-      st.write(len(collection.get()['documents']))
+      # st.write(len(collection.get()['documents']))
       st.sidebar.write("Hansard Vector DB created. With " + len(collection.get()['documents']) + " rows." )
-'''
 
 if st.button("Submit to AI", type="primary"):
      query_results = collection.query(
