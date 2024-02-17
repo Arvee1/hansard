@@ -2,3 +2,4 @@ streamlit
 chromadb
 ollama
 streamlit_chromadb_connection
+pysqlite3-binary
