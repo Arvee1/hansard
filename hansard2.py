@@ -24,12 +24,12 @@ collection = client.get_or_create_collection(
 
 # The UI Part
 st.title("👨‍💻 Chat with the Hansard Estimates - 2023")
-apikey = st.text_area("Please enter enter your API Key.")
+apikey = st.sidebar.text_area("Please enter enter your API Key.")
 prompt = st.text_area("Please enter what you want to know from the hearing for the Employment Department.")
 
 
 # Load VectorDB
-if st.button("Load Hansard into Vector DB if loading the page for the first time.", type="primary"):
+if st.sidebar.button("Load Hansard into Vector DB if loading the page for the first time.", type="primary"):
       with open("hansard-utf8.txt") as f:
           hansard = f.read()
           text_splitter = RecursiveCharacterTextSplitter(
@@ -46,11 +46,10 @@ if st.button("Load Hansard into Vector DB if loading the page for the first time
            documents=documents,
            ids=[f"id{i}" for i in range(len(documents))],
       )
-     
+   
       # number of rows
       st.write(len(collection.get()['documents']))
-     
-      # prompt = ("What are the key questions that Senator Cash asks? What were on notice?")
+      st.sidebar.write("Hansard Vector DB created. With " + len(collection.get()['documents']) + " rows." )
 
 if st.button("Submit to AI", type="primary"):
      query_results = collection.query(
