@@ -34,10 +34,10 @@ text_splitter = RecursiveCharacterTextSplitter(
 )
 
 texts = text_splitter.create_documents([hansard])
-print(texts[0])
+st.write(texts[0])
 # print(texts[1])
 # print(texts[2])
 # print(texts[3])
 
 documents = text_splitter.split_text(hansard)[:len(texts)]
-print(documents)
+st.write(documents)
