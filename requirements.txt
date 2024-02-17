@@ -1,5 +1,5 @@
 streamlit
-langchain.text_splitter
+langchain
 pysqlite3-binary
 sentence_transformers
 chromadb
