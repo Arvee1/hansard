@@ -10,7 +10,7 @@ import chromadb
 from chromadb.utils import embedding_functions
 # from streamlit_chromadb_connection.chromadb_connection import ChromadbConnection
 
-client = OpenAI(api_key="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")
+client_AI = OpenAI(api_key="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")
 
 CHROMA_DATA_PATH = "chroma_data/"
 EMBED_MODEL = "all-MiniLM-L6-v2"
@@ -76,7 +76,7 @@ query_results = collection.query(
 augment_query = str(query_results["documents"])
 st.write(augment_query)
 
-response = client.chat.completions.create(
+response = client_AI.chat.completions.create(
   model="gpt-3.5-turbo",
   messages=[
     {
