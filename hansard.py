@@ -79,7 +79,6 @@ response = ollama.chat(
         {
             "role": "system",
             "content": "You are a friendly assistant."
-            # "content": augment_query
         },
         {
             "role": "user",
@@ -88,4 +87,4 @@ response = ollama.chat(
     ],
 )
 
-print(response['message']['content'])
+st.write(response['message']['content'])
