@@ -41,3 +41,12 @@ st.write(texts[0])
 
 documents = text_splitter.split_text(hansard)[:len(texts)]
 st.write(documents)
+
+collection.add(
+     documents=documents,
+     ids=[f"id{i}" for i in range(len(documents))],
+#     metadatas=[{"genre": g} for g in genres]
+)
+
+# number of rows
+st.write(len(collection.get()['documents']))
