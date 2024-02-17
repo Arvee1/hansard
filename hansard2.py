@@ -92,7 +92,7 @@ if st.button("Submit to AI", type="primary"):
          }
        ],
        temperature=0.1,
-       max_tokens=64,
+       max_tokens=1000,
        top_p=1
      )
      st.write(response.choices[0].message.content)
