@@ -1,4 +1,3 @@
 streamlit
-pysqlite3
 chromadb
 ollama
