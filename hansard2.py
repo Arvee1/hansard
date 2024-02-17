@@ -10,8 +10,6 @@ import chromadb
 from chromadb.utils import embedding_functions
 # from streamlit_chromadb_connection.chromadb_connection import ChromadbConnection
 
-# client_AI = OpenAI()
-
 CHROMA_DATA_PATH = "chroma_data/"
 EMBED_MODEL = "all-MiniLM-L6-v2"
 COLLECTION_NAME = "demo_docs"
@@ -76,26 +74,29 @@ query_results = collection.query(
 augment_query = str(query_results["documents"])
 st.write(augment_query)
 
-'''
-response = client_AI.chat.completions.create(
-  model="gpt-3.5-turbo",
-  messages=[
-    {
-      "role": "system",
-      "content": "You are a friendly assistant."
-    },
-    {
-      "role": "user",
-      "content": augment_query + " Prompt: " + prompt
+apikey = st.text_area("Enter API Key")
 
-    }
-  ],
-  temperature=0.1,
-  max_tokens=64,
-  top_p=1
-)
+if st.button("Submit to AI", type="primary"):
+     client_AI = OpenAI(api_key=apikey)
+     response = client_AI.chat.completions.create(
+       model="gpt-3.5-turbo",
+       messages=[
+         {
+           "role": "system",
+           "content": "You are a friendly assistant."
+         },
+         {
+           "role": "user",
+           "content": augment_query + " Prompt: " + prompt
+         }
+       ],
+       temperature=0.1,
+       max_tokens=64,
+       top_p=1
+     )
 st.write(response.choices[0].message.content)
-'''
+
+
 '''
 response = ollama.chat(
     model='llama2',
