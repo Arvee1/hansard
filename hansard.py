@@ -28,7 +28,7 @@ collection = client.get_or_create_collection(
      embedding_function=embedding_func,
      metadata={"hnsw:space": "cosine"},
  )
-
+'''
 with open("hansard-utf8.txt") as f:
     hansard = f.read()
 
@@ -54,6 +54,6 @@ collection.add(
      ids=[f"id{i}" for i in range(len(documents))],
 #     metadatas=[{"genre": g} for g in genres]
 )
-
+'''
 # number of rows
 st.write(len(collection.get()['documents']))
