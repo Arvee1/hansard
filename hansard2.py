@@ -47,21 +47,25 @@ collection.add(
 # number of rows
 st.write(len(collection.get()['documents']))
 
-prompt = ("What are the key questions that Senator Cash asks? What were on notice?")
+# prompt = ("What are the key questions that Senator Cash asks? What were on notice?")
 
-query_results = collection.query(
-     query_texts=[prompt],
-     # include=["documents", "embeddings"],
-     include=["documents"],
-     n_results=100,
- )
-
-augment_query = str(query_results["documents"])
-st.write(augment_query)
-
+# The UI Part
+st.title("👨‍💻 Chat with the Hansard Estimates - 2023")
+st.write("Please enter enter your API Key.")
 apikey = st.text_area("Enter API Key")
 
+st.write("Please enter what you want to know from the hearing for the Employment Department.")
+prompt = st.text_area("What do you want to know?")
+
 if st.button("Submit to AI", type="primary"):
+     query_results = collection.query(
+          query_texts=[prompt],
+          # include=["documents", "embeddings"],
+          include=["documents"],
+          n_results=100,
+     )
+     augment_query = str(query_results["documents"])
+    
      client_AI = OpenAI(api_key=apikey)
      response = client_AI.chat.completions.create(
        model="gpt-3.5-turbo",
