@@ -56,7 +56,7 @@ if st.button("Submit to DJ Arvee", type="primary"):
           query_texts=[prompt],
           # include=["documents", "embeddings"],
           include=["documents"],
-          n_results=100,
+          n_results=75,
      )
      augment_query = str(query_results["documents"])
     
