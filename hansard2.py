@@ -30,11 +30,11 @@ prompt = st.text_area("Please enter what you want to know from the hearing for t
 
 # Load VectorDB
 if st.sidebar.button("Load Hansard into Vector DB if loading the page for the first time.", type="primary"):
-     with open("hansard-utf8.txt") as f:
+     with open("hansardFeb2024.txt") as f:
          hansard = f.read()
          text_splitter = RecursiveCharacterTextSplitter(
-             chunk_size=500,
-             chunk_overlap=20,
+             chunk_size=750,
+             chunk_overlap=50,
              length_function=len,
              is_separator_regex=False,
          )
@@ -51,7 +51,7 @@ if st.sidebar.button("Load Hansard into Vector DB if loading the page for the fi
      st.write(len(collection.get()['documents']))
      # st.sidebar.write("Hansard Vector DB created. With " + len(collection.get()['documents']) + " rows." )
 
-if st.button("Submit to AI", type="primary"):
+if st.button("Submit to DJ Arvee", type="primary"):
      query_results = collection.query(
           query_texts=[prompt],
           # include=["documents", "embeddings"],
