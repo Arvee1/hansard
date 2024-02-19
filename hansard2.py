@@ -29,26 +29,26 @@ prompt = st.text_area("Please enter what you want to know from the hearing for t
 
 
 # Load VectorDB
-if st.sidebar.button("Load Hansard into Vector DB if loading the page for the first time.", type="primary"):
-     with open("hansardFeb2024.txt") as f:
-         hansard = f.read()
-         text_splitter = RecursiveCharacterTextSplitter(
-             chunk_size=750,
-             chunk_overlap=50,
-             length_function=len,
-             is_separator_regex=False,
-         )
+# if st.sidebar.button("Load Hansard into Vector DB if loading the page for the first time.", type="primary"):
+     # with open("hansardFeb2024.txt") as f:
+         # hansard = f.read()
+         # text_splitter = RecursiveCharacterTextSplitter(
+             # chunk_size=750,
+             # chunk_overlap=50,
+             # length_function=len,
+             # is_separator_regex=False,
+         # )
     
-     texts = text_splitter.create_documents([hansard])
-     documents = text_splitter.split_text(hansard)[:len(texts)]
+     # texts = text_splitter.create_documents([hansard])
+     # documents = text_splitter.split_text(hansard)[:len(texts)]
     
-     collection.add(
-          documents=documents,
-          ids=[f"id{i}" for i in range(len(documents))],
-     )
+     # collection.add(
+          # documents=documents,
+          # ids=[f"id{i}" for i in range(len(documents))],
+     # )
   
      # number of rows
-     st.write(len(collection.get()['documents']))
+     # st.write(len(collection.get()['documents']))
      # st.sidebar.write("Hansard Vector DB created. With " + len(collection.get()['documents']) + " rows." )
 
 if st.button("Submit to DJ Arvee", type="primary"):
