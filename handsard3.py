@@ -41,16 +41,7 @@ if st.sidebar.button("Load Hansard into Vector DB if loading the page for the fi
     documents = text_splitter.split_documents(docs)
     vectorstore = Chroma.from_documents(documents, embeddings)
     retriever = vectorstore.as_retriever()
-    
-if st.button("Submit to DJ Arvee", type="primary"):
-     # query_results = collection.query(
-          # query_texts=[prompt],
-          # include=["documents", "embeddings"],
-          # include=["documents"],
-          # n_results=75,
-     # )
-     # Get the prompt to use - you can modify this!
-     tool = create_retriever_tool(
+    tool = create_retriever_tool(
          retriever,
          "Search_Hansard",
          "Searches and returns Hansard data.",
@@ -61,11 +52,21 @@ if st.button("Submit to DJ Arvee", type="primary"):
         # "handsard_search",
         # "Search for information about Handsard. For any questions about Handsard, you must use this tool!",
      # )
-     tools_this = [retriever_tool]
+     tools = [retriever_tool]
+
+if st.button("Submit to DJ Arvee", type="primary"):
+     # query_results = collection.query(
+          # query_texts=[prompt],
+          # include=["documents", "embeddings"],
+          # include=["documents"],
+          # n_results=75,
+     # )
+     # Get the prompt to use - you can modify this!
+     
      prompt_template = hub.pull("hwchase17/openai-functions-agent")
      llm = ChatOpenAI(model="gpt-3.5-turbo", temperature=0, api_key=st.secrets["api_key"])
-     agent = create_openai_functions_agent(llm, tools_this, prompt_template)
-     agent_executor = AgentExecutor(agent=agent, tools=tools_this, verbose=True)
+     agent = create_openai_functions_agent(llm, tools, prompt_template)
+     agent_executor = AgentExecutor(agent=agent, tools=tools, verbose=True)
      st.write(agent_executor.invoke({"input": prompt}))
      st.write("after agent execute")
 
