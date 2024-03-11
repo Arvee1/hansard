@@ -8,7 +8,6 @@ openai
 langchain_community
 langchainhub
 langchain.agents
-langchain_openai
 langchain.tools.retriever
 langchain_community.document_loaders
 langchain_text_splitters
