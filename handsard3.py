@@ -18,20 +18,15 @@ from langchain import hub
 from langchain.agents import create_openai_functions_agent
 from langchain.agents import AgentExecutor
 
-retriever_tool = create_retriever_tool(
-    retriever,
-    "handsard_search",
-    "Search for information about Handsard. For any questions about Handsard, you must use this tool!",
-)
-tools = [retriever_tool]
-
 # The UI Part
 st.title("👨‍💻 Wazzup!!!! Let's Chat with the Hansard Senate Estimates for Employment Department (DEWR) - 14 Feb 2024")
 prompt = st.text_area("Please enter what you want to know from the hearing for the Employment Department.")
 
 # Load VectorDB
 if st.sidebar.button("Load Hansard into Vector DB if loading the page for the first time.", type="primary"):
-     loader = TextLoader("hansardFeb2024.txt")
+    
+    
+    loader = TextLoader("hansardFeb2024.txt")
 
      docs = loader.load()
      embeddings = SentenceTransformerEmbeddings(model_name="all-MiniLM-L6-v2")
@@ -46,6 +41,12 @@ if st.sidebar.button("Load Hansard into Vector DB if loading the page for the fi
      documents = text_splitter.split_documents(docs)
      vectorstore = Chroma.from_documents(documents, embeddings)
      retriever = vectorstore.as_retriever()
+     retriever_tool = create_retriever_tool(
+         retriever,
+         "handsard_search",
+         "Search for information about Handsard. For any questions about Handsard, you must use this tool!",
+     )
+     tools = [retriever_tool] 
 
 if st.button("Submit to DJ Arvee", type="primary"):
      # query_results = collection.query(
