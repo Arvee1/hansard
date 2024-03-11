@@ -17,6 +17,8 @@ from langchain_openai import ChatOpenAI
 from langchain import hub
 from langchain.agents import create_openai_functions_agent
 from langchain.agents import AgentExecutor
+from langchain_community.tools import WikipediaQueryRun
+from langchain_community.utilities import WikipediaAPIWrapper
 
 # The UI Part
 st.title("👨‍💻 Wazzup!!!! Let's Chat with the Hansard Senate Estimates for Employment Department (DEWR) - 14 Feb 2024")
@@ -39,8 +41,13 @@ if st.sidebar.button("Load Hansard into Vector DB if loading the page for the fi
     documents = text_splitter.split_documents(docs)
     vectorstore = Chroma.from_documents(documents, embeddings)
     retriever = vectorstore.as_retriever()
+    # retriever_tool = create_retriever_tool(
+       # retriever,
+       # "handsard_search",
+      # "Search for information about Handsard. For any questions about Handsard, you must use this tool!",
+     # )
+     # tools = [retriever_tool]
     
-
 if st.button("Submit to DJ Arvee", type="primary"):
      # query_results = collection.query(
           # query_texts=[prompt],
@@ -49,12 +56,10 @@ if st.button("Submit to DJ Arvee", type="primary"):
           # n_results=75,
      # )
      # Get the prompt to use - you can modify this!
-     retriever_tool = create_retriever_tool(
-       retriever,
-       "handsard_search",
-      "Search for information about Handsard. For any questions about Handsard, you must use this tool!",
-     )
-     tools = [retriever_tool] 
+      
+     api_wrapper = WikipediaAPIWrapper(top_k_results=1, doc_content_chars_max=100)
+     tools = WikipediaQueryRun(api_wrapper=api_wrapper)
+
      prompt_template = hub.pull("hwchase17/openai-functions-agent")
      llm = ChatOpenAI(model="gpt-3.5-turbo", temperature=0, api_key=st.secrets["api_key"])
      agent = create_openai_functions_agent(llm, tools, prompt_template)
