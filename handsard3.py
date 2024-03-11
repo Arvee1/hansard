@@ -53,6 +53,7 @@ if st.sidebar.button("Load Hansard into Vector DB if loading the page for the fi
         # "Search for information about Handsard. For any questions about Handsard, you must use this tool!",
      # )
      tools = [retriever_tool]
+     st.write("Vector DB Created and Retriever Tool Created.")
 
 if st.button("Submit to DJ Arvee", type="primary"):
      # Get the prompt to use - you can modify this!
