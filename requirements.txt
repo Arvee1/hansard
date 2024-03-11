@@ -6,3 +6,6 @@ chromadb
 ollama
 openai
 langchain_community
+langchainhub
+langchain.agents
+langchain_openai
