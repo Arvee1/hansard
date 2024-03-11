@@ -7,7 +7,4 @@ ollama
 langchain_openai
 langchain_community
 langchainhub
-langchain.agents
-langchain.tools.retriever
-langchain_community.document_loaders
 langchain_text_splitters
