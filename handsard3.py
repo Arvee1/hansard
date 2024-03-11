@@ -23,30 +23,28 @@ st.title("👨‍💻 Wazzup!!!! Let's Chat with the Hansard Senate Estimates fo
 prompt = st.text_area("Please enter what you want to know from the hearing for the Employment Department.")
 
 # Load VectorDB
-if st.sidebar.button("Load Hansard into Vector DB if loading the page for the first time.", type="primary"):
-    
-    
+if st.sidebar.button("Load Hansard into Vector DB if loading the page for the first time.", type="primary"): 
     loader = TextLoader("hansardFeb2024.txt")
 
-     docs = loader.load()
-     embeddings = SentenceTransformerEmbeddings(model_name="all-MiniLM-L6-v2")
-     text_splitter = RecursiveCharacterTextSplitter(
-         # Set chunk size, just to show.
-         chunk_size=750,
-         chunk_overlap=50,
-         length_function=len,
-         is_separator_regex=False,
-     )
+    docs = loader.load()
+    embeddings = SentenceTransformerEmbeddings(model_name="all-MiniLM-L6-v2")
+    text_splitter = RecursiveCharacterTextSplitter(
+       # Set chunk size, just to show.
+       chunk_size=750,
+       chunk_overlap=50,
+       length_function=len,
+       is_separator_regex=False,
+    )
 
-     documents = text_splitter.split_documents(docs)
-     vectorstore = Chroma.from_documents(documents, embeddings)
-     retriever = vectorstore.as_retriever()
-     retriever_tool = create_retriever_tool(
-         retriever,
-         "handsard_search",
-         "Search for information about Handsard. For any questions about Handsard, you must use this tool!",
-     )
-     tools = [retriever_tool] 
+    documents = text_splitter.split_documents(docs)
+    vectorstore = Chroma.from_documents(documents, embeddings)
+    retriever = vectorstore.as_retriever()
+    retriever_tool = create_retriever_tool(
+       retriever,
+       "handsard_search",
+      "Search for information about Handsard. For any questions about Handsard, you must use this tool!",
+    )
+    tools = [retriever_tool] 
 
 if st.button("Submit to DJ Arvee", type="primary"):
      # query_results = collection.query(
