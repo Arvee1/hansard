@@ -61,11 +61,11 @@ if st.button("Submit to DJ Arvee", type="primary"):
         # "handsard_search",
         # "Search for information about Handsard. For any questions about Handsard, you must use this tool!",
      # )
-     tools = [retriever_tool]
+     tools_this = [retriever_tool]
      prompt_template = hub.pull("hwchase17/openai-functions-agent")
      llm = ChatOpenAI(model="gpt-3.5-turbo", temperature=0, api_key=st.secrets["api_key"])
-     agent = create_openai_functions_agent(llm, tools, prompt_template)
-     agent_executor = AgentExecutor(agent=agent, tools=tools, verbose=True)
+     agent = create_openai_functions_agent(llm, tools_this, prompt_template)
+     agent_executor = AgentExecutor(agent=agent, tools=tools_this, verbose=True)
      st.write(agent_executor.invoke({"input": prompt}))
      st.write("after agent execute")
 
