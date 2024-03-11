@@ -59,12 +59,13 @@ if st.sidebar.button("Load Hansard into Vector DB if loading the page for the fi
      # st.sidebar.write("Hansard Vector DB created. With " + len(collection.get()['documents']) + " rows." )
 
 if st.button("Submit to DJ Arvee", type="primary"):
-     query_results = collection.query(
-          query_texts=[prompt],
+     # query_results = collection.query(
+          # query_texts=[prompt],
           # include=["documents", "embeddings"],
-          include=["documents"],
-          n_results=75,
-     )
+          # include=["documents"],
+          # n_results=75,
+     # )
+     query_results = retriever.invoke(prompt)
      augment_query = str(query_results["documents"])
     
      client_AI = OpenAI(api_key=st.secrets["api_key"])
