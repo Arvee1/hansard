@@ -58,7 +58,7 @@ if st.button("Submit to DJ Arvee", type="primary"):
      # Get the prompt to use - you can modify this!
      prompt_template = hub.pull("hwchase17/openai-tools-agent")
      llm = ChatOpenAI(model="gpt-3.5-turbo", temperature=0, api_key=st.secrets["api_key"])
-     agent = create_openai_functions_agent(llm, tools, prompt_template)
+     agent = create_openai_tools_agent(llm, tools, prompt_template)
      agent_executor = AgentExecutor(agent=agent, tools=tools, verbose=True)
      st.write(agent_executor.invoke({"input": prompt}))
      st.write("after agent execute")
