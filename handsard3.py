@@ -50,11 +50,17 @@ if st.button("Submit to DJ Arvee", type="primary"):
           # n_results=75,
      # )
      # Get the prompt to use - you can modify this!
-     retriever_tool = create_retriever_tool(
-        retriever,
-        "handsard_search",
-        "Search for information about Handsard. For any questions about Handsard, you must use this tool!",
+     tool = create_retriever_tool(
+         retriever,
+         "Search_Hansard",
+         "Searches and returns Hansard data.",
      )
+     retriever_tool = [tool]
+     # retriever_tool = create_retriever_tool(
+        # retriever,
+        # "handsard_search",
+        # "Search for information about Handsard. For any questions about Handsard, you must use this tool!",
+     # )
      tools = [retriever_tool]
      prompt_template = hub.pull("hwchase17/openai-functions-agent")
      llm = ChatOpenAI(model="gpt-3.5-turbo", temperature=0, api_key=st.secrets["api_key"])
