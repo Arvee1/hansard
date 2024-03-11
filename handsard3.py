@@ -55,7 +55,7 @@ if st.sidebar.button("Load Hansard into Vector DB if loading the page for the fi
     prompt_template = hub.pull("hwchase17/openai-tools-agent")
     # llm = ChatOpenAI(model="gpt-3.5-turbo", temperature=0, api_key=st.secrets["api_key"])
     llm = ChatOpenAI(temperature=0, api_key=st.secrets["api_key"])
-    agent = create_openai_tools_agent(llm, tools, prompt_template)
+    agent = create_openai_tools_agent(llm, tool, prompt_template)
     agent_executor = AgentExecutor(agent=agent, tools=tools, verbose=True)
     st.write("Agent Ready to run.")
 
