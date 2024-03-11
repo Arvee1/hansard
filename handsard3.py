@@ -39,12 +39,7 @@ if st.sidebar.button("Load Hansard into Vector DB if loading the page for the fi
     documents = text_splitter.split_documents(docs)
     vectorstore = Chroma.from_documents(documents, embeddings)
     retriever = vectorstore.as_retriever()
-    retriever_tool = create_retriever_tool(
-       retriever,
-       "handsard_search",
-      "Search for information about Handsard. For any questions about Handsard, you must use this tool!",
-    )
-    tools = [retriever_tool] 
+    
 
 if st.button("Submit to DJ Arvee", type="primary"):
      # query_results = collection.query(
@@ -54,6 +49,11 @@ if st.button("Submit to DJ Arvee", type="primary"):
           # n_results=75,
      # )
      # Get the prompt to use - you can modify this!
+     retriever_tool = create_retriever_tool(
+       retriever,
+       "handsard_search",
+      "Search for information about Handsard. For any questions about Handsard, you must use this tool!",
+     )
      tools = [retriever_tool] 
      prompt_template = hub.pull("hwchase17/openai-functions-agent")
      llm = ChatOpenAI(model="gpt-3.5-turbo", temperature=0, api_key=st.secrets["api_key"])
