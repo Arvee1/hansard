@@ -13,23 +13,6 @@ from langchain_community.embeddings.sentence_transformer import (
 from langchain_community.document_loaders import TextLoader
 from langchain_community.vectorstores import Chroma
 
-loader = TextLoader("hansardFeb2024.txt")
-
-docs = loader.load()
-embeddings = SentenceTransformerEmbeddings(model_name="all-MiniLM-L6-v2")
-text_splitter = RecursiveCharacterTextSplitter(
-    # Set chunk size, just to show.
-    chunk_size=500,
-    chunk_overlap=20,
-    length_function=len,
-    is_separator_regex=False,
-)
-
-documents = text_splitter.split_documents(docs)
-vectorstore = Chroma.from_documents(documents, embeddings)
-retriever = vectorstore.as_retriever()
-
-
 # The UI Part
 st.title("👨‍💻 Wazzup!!!! Let's Chat with the Hansard Senate Estimates for Employment Department (DEWR) - 14 Feb 2024")
 # apikey = st.sidebar.text_area("Please enter enter your API Key.")
@@ -37,7 +20,23 @@ prompt = st.text_area("Please enter what you want to know from the hearing for t
 
 
 # Load VectorDB
-# if st.sidebar.button("Load Hansard into Vector DB if loading the page for the first time.", type="primary"):
+if st.sidebar.button("Load Hansard into Vector DB if loading the page for the first time.", type="primary"):
+     loader = TextLoader("hansardFeb2024.txt")
+
+     docs = loader.load()
+     embeddings = SentenceTransformerEmbeddings(model_name="all-MiniLM-L6-v2")
+     text_splitter = RecursiveCharacterTextSplitter(
+         # Set chunk size, just to show.
+         chunk_size=750,
+         chunk_overlap=50,
+         length_function=len,
+         is_separator_regex=False,
+     )
+
+     documents = text_splitter.split_documents(docs)
+     vectorstore = Chroma.from_documents(documents, embeddings)
+     retriever = vectorstore.as_retriever()
+
      # with open("hansardFeb2024.txt") as f:
          # hansard = f.read()
          # text_splitter = RecursiveCharacterTextSplitter(
