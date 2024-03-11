@@ -59,5 +59,6 @@ if st.button("Submit to DJ Arvee", type="primary"):
      agent = create_openai_functions_agent(llm, tools, prompt_template)
      agent_executor = AgentExecutor(agent=agent, tools=tools, verbose=True)
      st.write(agent_executor.invoke({"input": prompt}))
+     st.write("after agent execute")
 
 
