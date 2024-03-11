@@ -4,27 +4,35 @@ sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 import streamlit as st
 from openai import OpenAI
-import chromadb
-from chromadb.utils import embedding_functions
+# import chromadb
+# from chromadb.utils import embedding_functions
+from langchain_text_splitters import RecursiveCharacterTextSplitter
+from langchain_community.embeddings.sentence_transformer import (
+    SentenceTransformerEmbeddings,
+)
+from langchain_community.document_loaders import TextLoader
+from langchain_community.vectorstores import Chroma
 
-CHROMA_DATA_PATH = "chroma_data/"
-EMBED_MODEL = "all-MiniLM-L6-v2"
-COLLECTION_NAME = "demo_docs"
+loader = TextLoader("hansardFeb2024.txt")
 
-client = chromadb.PersistentClient(path=CHROMA_DATA_PATH)
-embedding_func = embedding_functions.SentenceTransformerEmbeddingFunction(
-     model_name=EMBED_MODEL
- )
+docs = loader.load()
+embeddings = SentenceTransformerEmbeddings(model_name="all-MiniLM-L6-v2")
+text_splitter = RecursiveCharacterTextSplitter(
+    # Set chunk size, just to show.
+    chunk_size=500,
+    chunk_overlap=20,
+    length_function=len,
+    is_separator_regex=False,
+)
 
-collection = client.get_or_create_collection(
-     name=COLLECTION_NAME,
-     embedding_function=embedding_func,
-     metadata={"hnsw:space": "cosine"},
- )
+documents = text_splitter.split_documents(docs)
+vectorstore = Chroma.from_documents(documents, embeddings)
+retriever = vectorstore.as_retriever()
+
 
 # The UI Part
 st.title("👨‍💻 Wazzup!!!! Let's Chat with the Hansard Senate Estimates for Employment Department (DEWR) - 14 Feb 2024")
-apikey = st.sidebar.text_area("Please enter enter your API Key.")
+# apikey = st.sidebar.text_area("Please enter enter your API Key.")
 prompt = st.text_area("Please enter what you want to know from the hearing for the Employment Department.")
 
 
