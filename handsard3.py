@@ -67,7 +67,7 @@ if st.button("Submit to DJ Arvee", type="primary"):
      )
      augment_query = str(query_results["documents"])
     
-     client_AI = OpenAI(api_key=api_key)
+     client_AI = OpenAI(api_key=st.secrets["api_key"])
      response = client_AI.chat.completions.create(
        model="gpt-3.5-turbo",
        messages=[
