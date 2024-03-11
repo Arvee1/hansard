@@ -15,7 +15,7 @@ from langchain_community.vectorstores import Chroma
 from langchain.tools.retriever import create_retriever_tool
 from langchain_openai import ChatOpenAI
 from langchain import hub
-from langchain.agents import create_openai_functions_agent
+from langchain.agents import create_openai_tools_agent
 from langchain.agents import AgentExecutor
 from langchain_community.tools import WikipediaQueryRun
 from langchain_community.utilities import WikipediaAPIWrapper
