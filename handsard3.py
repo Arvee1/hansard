@@ -54,6 +54,7 @@ if st.button("Submit to DJ Arvee", type="primary"):
           # n_results=75,
      # )
      # Get the prompt to use - you can modify this!
+     tools = [retriever_tool] 
      prompt_template = hub.pull("hwchase17/openai-functions-agent")
      llm = ChatOpenAI(model="gpt-3.5-turbo", temperature=0, api_key=st.secrets["api_key"])
      agent = create_openai_functions_agent(llm, tools, prompt_template)
