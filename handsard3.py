@@ -57,7 +57,7 @@ if st.sidebar.button("Load Hansard into Vector DB if loading the page for the fi
 
 if st.button("Submit to DJ Arvee", type="primary"):
      # Get the prompt to use - you can modify this!
-     prompt_template = hub.pull("hwchase17/openai-functions-agent")
+     prompt_template = hub.pull("hwchase17/openai-tools-agent")
      llm = ChatOpenAI(model="gpt-3.5-turbo", temperature=0, api_key=st.secrets["api_key"])
      agent = create_openai_functions_agent(llm, tools, prompt_template)
      agent_executor = AgentExecutor(agent=agent, tools=tools, verbose=True)
