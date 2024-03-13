@@ -25,39 +25,41 @@ st.title("👨‍💻 Wazzup!!!! Let's Chat with the Hansard Senate Estimates fo
 prompt = st.text_area("Please enter what you want to know from the hearing for the Employment Department.")
 
 # Load VectorDB
-# if st.sidebar.button("Load Hansard into Vector DB if loading the page for the first time.", type="primary"): 
-loader = TextLoader("hansardFeb2024.txt")
-docs = loader.load()
-embeddings = SentenceTransformerEmbeddings(model_name="all-MiniLM-L6-v2")
-text_splitter = RecursiveCharacterTextSplitter(
-   # Set chunk size, just to show.
-    chunk_size=750,
-    chunk_overlap=50,
-    length_function=len,
-    is_separator_regex=False,
-)
-
-documents = text_splitter.split_documents(docs)
-vectorstore = Chroma.from_documents(documents, embeddings)
-retriever = vectorstore.as_retriever()
-# tool = create_retriever_tool(
-    # retriever,
-    # "Search_Hansard",
-    # "Searches and returns Hansard data.",
-# )
-# retriever_tool = [tool]
-retriever_tool = create_retriever_tool(
-    retriever,
-    "handsard_search",
-    "Search for information about Handsard. For any questions about Handsard, you must use this tool!",
-)
-tools = [retriever_tool]
-prompt_template = hub.pull("hwchase17/openai-tools-agent")
-# llm = ChatOpenAI(model="gpt-3.5-turbo", temperature=0, api_key=st.secrets["api_key"])
-llm = ChatOpenAI(temperature=0, api_key=st.secrets["api_key"])
-agent = create_openai_tools_agent(llm, tool, prompt_template)
-agent_executor = AgentExecutor(agent=agent, tools=tools, verbose=True)
-st.write("Agent Ready to run.")
+# vectorstore = Chroma()
+agent_executor = AgentExecutor()
+if st.sidebar.button("Load Hansard into Vector DB if loading the page for the first time.", type="primary"): 
+    loader = TextLoader("hansardFeb2024.txt")
+    docs = loader.load()
+    embeddings = SentenceTransformerEmbeddings(model_name="all-MiniLM-L6-v2")
+    text_splitter = RecursiveCharacterTextSplitter(
+       # Set chunk size, just to show.
+        chunk_size=750,
+        chunk_overlap=50,
+        length_function=len,
+        is_separator_regex=False,
+    )
+    
+    documents = text_splitter.split_documents(docs)
+    vectorstore = Chroma.from_documents(documents, embeddings)
+    retriever = vectorstore.as_retriever()
+    # tool = create_retriever_tool(
+        # retriever,
+        # "Search_Hansard",
+        # "Searches and returns Hansard data.",
+    # )
+    # retriever_tool = [tool]
+    retriever_tool = create_retriever_tool(
+        retriever,
+        "handsard_search",
+        "Search for information about Handsard. For any questions about Handsard, you must use this tool!",
+    )
+    tools = [retriever_tool]
+    prompt_template = hub.pull("hwchase17/openai-tools-agent")
+    # llm = ChatOpenAI(model="gpt-3.5-turbo", temperature=0, api_key=st.secrets["api_key"])
+    llm = ChatOpenAI(temperature=0, api_key=st.secrets["api_key"])
+    agent = create_openai_tools_agent(llm, tool, prompt_template)
+    agent_executor = AgentExecutor(agent=agent, tools=tools, verbose=True)
+    st.write("Agent Ready to run.")
 
 if st.button("Submit to DJ Arvee", type="primary"):
     # Get the prompt to use - you can modify this! 
