@@ -25,8 +25,6 @@ st.title("👨‍💻 Wazzup!!!! Let's Chat with the Hansard Senate Estimates fo
 prompt = st.text_area("Please enter what you want to know from the hearing for the Employment Department.")
 
 # Load VectorDB
-# vectorstore = Chroma()
-agent_executor = AgentExecutor()
 if st.sidebar.button("Load Hansard into Vector DB if loading the page for the first time.", type="primary"): 
     loader = TextLoader("hansardFeb2024.txt")
     docs = loader.load()
