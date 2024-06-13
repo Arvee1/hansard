@@ -7,6 +7,8 @@ from openai import OpenAI
 import chromadb
 from chromadb.utils import embedding_functions
 
+openai_api_key = st.secrets["api_key"]
+
 CHROMA_DATA_PATH = "chroma_data/"
 EMBED_MODEL = "all-MiniLM-L6-v2"
 COLLECTION_NAME = "demo_docs"
@@ -24,7 +26,8 @@ collection = client.get_or_create_collection(
 
 # The UI Part
 st.title("👨‍💻 Wazzup!!!! Let's Chat with the Hansard Senate Estimates for Employment Department (DEWR) - 3 June 2024")
-apikey = st.sidebar.text_area("Please enter enter your API Key.")
+# apikey = st.sidebar.text_area("Please enter enter your API Key.")
+apikey = openai_api_key
 prompt = st.text_area("Please enter what you want to know from the hearing for the Employment Department.")
 
 
