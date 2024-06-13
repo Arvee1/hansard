@@ -6,6 +6,7 @@ import streamlit as st
 from openai import OpenAI
 import chromadb
 from chromadb.utils import embedding_functions
+import replicate
 
 openai_api_key = st.secrets["api_key"]
 
@@ -63,24 +64,44 @@ if st.button("Submit to DJ Arvee", type="primary"):
           n_results=75,
      )
      augment_query = str(query_results["documents"])
-    
-     client_AI = OpenAI(api_key=apikey)
-     response = client_AI.chat.completions.create(
-       model="gpt-3.5-turbo",
-       messages=[
-         {
-           "role": "system",
-           "content": "You are a friendly assistant."
-         },
-         {
-           "role": "user",
-           "content": augment_query + " Prompt: " + prompt
-         }
-       ],
-       temperature=0.1,
-       max_tokens=1000,
-       top_p=1
-     )
+
+     result_ai = ""
+          # The meta/llama-2-7b-chat model can stream output as it's running.
+          # The meta/meta-llama-3-70b-instruct model can stream output as it's running.
+          for event in replicate.stream(
+              "meta/meta-llama-3-70b-instruct",
+              input={
+                  "top_k": 50,
+                  "top_p": 0.9,
+                  "prompt": "Prompt: " + prompt + " " + augment_query,
+                  "max_tokens": 512,
+                  "min_tokens": 0,
+                  "temperature": 0.6,
+                  "prompt_template": "<|begin_of_text|><|start_header_id|>system<|end_header_id|>\n\nYou are a helpful assistant<|eot_id|><|start_header_id|>user<|end_header_id|>\n\n{prompt}<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n\n",
+                  "presence_penalty": 1.15,
+                  "frequency_penalty": 0.2
+              },
+          ):
+              result_ai = result_ai + (str(event))
+          st.write(result_ai)
+
+     # client_AI = OpenAI(api_key=apikey)
+     # response = client_AI.chat.completions.create(
+       # model="gpt-3.5-turbo",
+       # messages=[
+         # {
+           # "role": "system",
+           # "content": "You are a friendly assistant."
+         # },
+         # {
+           # "role": "user",
+           # "content": augment_query + " Prompt: " + prompt
+         # }
+       # ],
+       # temperature=0.1,
+       # max_tokens=1000,
+       # top_p=1
+     # )
      
-     st.write(response.choices[0].message.content)
+     # st.write(response.choices[0].message.content)
 
