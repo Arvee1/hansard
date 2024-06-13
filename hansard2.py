@@ -30,7 +30,7 @@ prompt = st.text_area("Please enter what you want to know from the hearing for t
 
 # Load VectorDB
 # if st.sidebar.button("Load Hansard into Vector DB if loading the page for the first time.", type="primary"):
-     # with open("hansardFeb2024.txt") as f:
+     # with open("Education and Employment Legislation Committee_2024_06_03.txt") as f:
          # hansard = f.read()
          # text_splitter = RecursiveCharacterTextSplitter(
              # chunk_size=750,
