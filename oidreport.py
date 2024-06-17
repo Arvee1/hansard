@@ -36,7 +36,7 @@ prompt = st.text_area("Please enter what you want to know from the OID Report.")
 # if st.sidebar.button("Load OFSC Facsheets into Vector DB if loading the page for the first time.", type="primary"):
 @st.cache_resource
 def create_vector():
-      with open("oid-2020-overcoming-indigenous-disadvantage-key-indicators-2020-report.txt") as f:
+      with open("oid-2020.txt") as f:
           hansard = f.read()
           text_splitter = RecursiveCharacterTextSplitter(
               chunk_size=500,
